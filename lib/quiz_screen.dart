@@ -54,7 +54,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   Color _getOptionColor(String option) {
     if (!_answered) {
-      return Colors.deepPurple.shade100;
+      return const Color.fromARGB(255, 74, 51, 117);
     }
 
     final correctAnswer = _questions[_currentQuestionIndex].correctAnswer;
@@ -166,8 +166,28 @@ class _QuizScreenState extends State<QuizScreen> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _getOptionColor(option),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
                   onPressed: _answered ? null : () => _checkAnswer(option),
-                  child: Text(option),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          option,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      if (_getOptionIcon(option) != null)
+                        Icon(_getOptionIcon(option)),
+                    ],
+                  ),
                 ),
               );
             }),
