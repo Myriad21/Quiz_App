@@ -52,6 +52,40 @@ class _QuizScreenState extends State<QuizScreen> {
     });
   }
 
+  Color _getOptionColor(String option) {
+    if (!_answered) {
+      return Colors.deepPurple.shade100;
+    }
+
+    final correctAnswer = _questions[_currentQuestionIndex].correctAnswer;
+
+    if (option == correctAnswer) {
+      return Colors.green;
+    }
+
+    if (option == _selectedAnswer && option != correctAnswer) {
+      return Colors.red;
+    }
+
+    return Colors.deepPurple.shade100;
+  }
+
+  IconData? _getOptionIcon(String option) {
+    if (!_answered) return null;
+
+    final correctAnswer = _questions[_currentQuestionIndex].correctAnswer;
+
+    if (option == correctAnswer) {
+      return Icons.check;
+    }
+
+    if (option == _selectedAnswer && option != correctAnswer) {
+      return Icons.close;
+    }
+
+    return null;
+  }
+
   void _nextQuestion() {
     if (_currentQuestionIndex < _questions.length - 1) {
       setState(() {
