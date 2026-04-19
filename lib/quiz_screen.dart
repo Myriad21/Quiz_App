@@ -39,6 +39,21 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
+  Future<void> _reloadQuiz() async {
+    Navigator.of(context).pop();
+
+    setState(() {
+      _isLoading = true;
+      _questions = [];
+      _currentQuestionIndex = 0;
+      _score = 0;
+      _answered = false;
+      _selectedAnswer = null;
+    });
+
+    await _loadQuestions();
+  }
+
   void _checkAnswer(String selectedOption) {
     if (_answered) return;
 
@@ -117,6 +132,10 @@ class _QuizScreenState extends State<QuizScreen> {
               });
             },
             child: const Text('Restart'),
+          ),
+          TextButton(
+            onPressed: _reloadQuiz,
+            child: const Text('New Questions'),
           ),
         ],
       ),
