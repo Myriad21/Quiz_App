@@ -166,12 +166,18 @@ class _QuizScreenState extends State<QuizScreen> {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: _getOptionColor(option),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+                      return _getOptionColor(option);
+                    }),
+                    foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
+                    padding: WidgetStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+                    ),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
                     ),
                   ),
                   onPressed: _answered ? null : () => _checkAnswer(option),
