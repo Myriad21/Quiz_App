@@ -4,7 +4,7 @@ import 'question.dart';
 
 class ApiService {
   static const String _url =
-      'https://opentdb.com/api.php?amount=2&category=9&difficulty=easy&type=multiple';
+      'https://opentdb.com/api.php?amount=5&category=9&difficulty=easy&type=multiple';
 
   Future<List<Question>> fetchQuestions() async {
     final response = await http.get(Uri.parse(_url));
